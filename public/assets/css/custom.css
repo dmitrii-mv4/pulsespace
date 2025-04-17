@@ -1,3 +1,43 @@
+/** logo **/
+@import url(https://fonts.googleapis.com/css?family=Kanit:600);
+
+.logo-text {
+	color:rgb(156, 0, 195);
+	font: normal 600 2.5vw/1.25 Kanit, sans-serif;
+	text-align: center;
+	filter: drop-shadow(4px 4px 10px black);
+  animation: slide-in 6s infinite linear;
+	animation-delay: calc( (80ms * var(--char-index)));
+    animation-direction: alternate;
+    font-family: inherit;
+}
+
+@keyframes slide-in {
+	0% {
+		color: rgb(156, 0, 195);
+		filter: drop-shadow(1px 1px 1px black);
+	}
+
+	20% {
+		color: orange;
+		filter: drop-shadow(2px 1px 2px orange);
+	}
+	50% {
+		color:rgb(255, 0, 179);
+		filter: drop-shadow(1px 2px 3px red);
+	}
+	85% {
+		color: rgb(72, 255, 0);
+		filter: drop-shadow(1px 1px 2px orange);
+	}
+	100% {
+		color: rgb(156, 0, 195);
+		filter: drop-shadow(1px 1px 1px black);
+	}
+}
+
+/** end logo **/
+
 .widget-info-user-main {
     width: 100%;
 }
