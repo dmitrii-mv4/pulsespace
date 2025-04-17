@@ -12,6 +12,8 @@ use App\Http\Controllers\Auth\RegisterController;
 //     return view('welcome');
 // });
 
+// test
+
 
 
 Auth::routes();
