@@ -20,3 +20,5 @@
 <br/>
 <p>3. Загрузить код</p>
 <p>git push -u origin main</p>
+<p>4. Создать символическую ссылку для диска</p>
+<p>php artisan storage:link</p>
