@@ -6,9 +6,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Pulse Space') }}</title>
     <!--favicon-->
-    <link rel="icon" href="/assets/images/favicon-32x32.png" type="image/png">
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/png">
 
     <link rel="stylesheet" href="/assets/css/custom.css">
 
@@ -641,11 +641,12 @@
      <aside class="sidebar-wrapper" data-simplebar="true">
       <div class="sidebar-header">
         <div class="logo-icon">
-          <img src="assets/images/logo-icon.png" class="logo-img" alt="">
+          <!-- <img src="assets/images/logo.png" class="logo-img" alt=""> -->
+          <div class="logo-text mb-3" data-splitting>Pulse Space</div>
         </div>
-        <div class="logo-name flex-grow-1">
+        <!-- <div class="logo-name flex-grow-1">
           <h5 class="mb-0">Maxton</h5>
-        </div>
+        </div> -->
         <div class="sidebar-close">
           <span class="material-icons-outlined">close</span>
         </div>

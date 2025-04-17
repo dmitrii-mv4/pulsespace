@@ -19,7 +19,8 @@
         <div class="col-12 col-xl-5 col-xxl-4 auth-cover-right align-items-center justify-content-center border-top border-4 border-primary border-gradient-1">
           <div class="card rounded-0 m-3 mb-0 border-0 shadow-none bg-none">
             <div class="card-body p-sm-5">
-              <img src="/assets/images/logo1.png" class="mb-4" width="145" alt="">
+              <!-- <img src="/assets/images/logo.png" width="210" alt=""> -->
+              <div class="logo-text mb-3" data-splitting>Pulse Space</div>
               <h4 class="fw-bold">Добро пожаловать к нам!</h4>
               <p class="mb-0">Войдите в свой аккаунт</p>
 
