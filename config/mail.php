@@ -46,7 +46,7 @@ return [
             'username' => env('pulsespace@dmv4.ru'),
             'password' => env('K09412zGa'),
             'timeout' => null,
-            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', Request::root()), PHP_URL_HOST)),
+            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'https://pulsespace.ru'), PHP_URL_HOST)),
         ],
 
         'ses' => [
