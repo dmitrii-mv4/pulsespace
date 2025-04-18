@@ -16,8 +16,7 @@ use App\Models\LevelBindTask;
 use App\Models\LevelTaskBindUser;
 use App\Models\UsersReferral;
 
-class User extends Authenticatable 
-//implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes, MustVerifyEmail;

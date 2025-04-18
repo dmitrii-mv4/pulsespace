@@ -67,7 +67,16 @@
                         @if (!empty($user->email))
                             <div class="row">
                                 <p class="col-sm-3 col-form-label">Почта:</p>
-                                <p class="col-sm-9">{{ $user->email }} @if($user->email_verified_at == null) [ <a href="">Подтвердить почту</a> ] @endif</p>
+                                <p class="col-sm-9">{{ $user->email }} 
+                                    @if($user->email_verified_at == null) 
+
+                                        <form method="POST" action="{{ route('verification.resend') }}">
+                                            @csrf
+                                            [ <button type="submit">Подтвердить почту</button> ]
+                                        </form>
+
+                                    @endif</p>
+
                             </div>
                         @endif
 
