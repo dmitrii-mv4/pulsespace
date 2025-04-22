@@ -70,13 +70,20 @@
                                 <p class="col-sm-9">{{ $user->email }} 
                                     @if($user->email_verified_at == null) 
 
-                                        <form method="POST" action="{{ route('verification.resend') }}">
-                                            @csrf
-                                            [ <button type="submit">Подтвердить почту</button> ]
-                                        </form>
+                                        @if (auth()->user() && !auth()->user()->hasVerifiedEmail())
+                                            <div class="alert alert-warning">
+                                                Ваш email не подтверждён.
+                                                <form method="POST" action="{{ route('verification.send') }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-link p-0">
+                                                        Отправить ссылку подтверждения
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endif
 
-                                    @endif</p>
-
+                                    @endif
+                                </p>
                             </div>
                         @endif
 
