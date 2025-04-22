@@ -38,15 +38,17 @@ Route::prefix('lk')->middleware(['auth'])->group(function () {
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->middleware(['track_referral_clicks'])->name('register');
 
-// Отправка письма с подтверждением
-Route::post('/email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])
-    ->middleware(['auth'])
-    ->name('verification.send');
+Route::prefix('lk')->group(function () {
+    // Отправка письма с подтверждением
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])
+        ->middleware(['auth'])
+        ->name('verification.send');
 
-// Обработка перехода по ссылке подтверждения
-Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
-    ->middleware(['auth', 'signed'])
-    ->name('verification.verify');
+    // Обработка перехода по ссылке подтверждения
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+        ->middleware(['auth', 'signed'])
+        ->name('verification.verify');
+});
     
 // Есть запрос на profile
 // $url_profile = explode('/', URL::current());
