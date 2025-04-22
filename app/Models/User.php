@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
-// use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,10 +16,10 @@ use App\Models\LevelBindTask;
 use App\Models\LevelTaskBindUser;
 use App\Models\UsersReferral;
 
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, SoftDeletes, MustVerifyEmail;
+    use HasFactory, Notifiable, SoftDeletes, MustVerifyEmailTrait;
 
     protected $guarded = []; // разрешить любой запрос на добавление в БД
     protected $casts = ['date_of_birth'];
