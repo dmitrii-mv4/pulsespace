@@ -456,7 +456,7 @@
               </div>
             </div>
           </li> --}}
-          <li class="nav-item dropdown">
+          {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" data-bs-auto-close="outside"
               data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">notifications</i>
               <span class="badge-notify">5</span>
@@ -593,13 +593,13 @@
                 </div>
               </div>
             </div>
-          </li>
-          <li class="nav-item d-md-flex d-none">
+          </li> --}}
+          {{-- <li class="nav-item d-md-flex d-none">
             <a class="nav-link position-relative" data-bs-toggle="offcanvas" href="#offcanvasCart"><i
                 class="material-icons-outlined">shopping_cart</i>
               <span class="badge-notify">8</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item dropdown">
             <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
               @if (!empty(Auth::user()->avatar))
@@ -696,16 +696,16 @@
             </li>
             
             <li class="menu-label">Помощь</li>
-            <li>
+            {{-- <li>
               <a href="javascrpt:;">
                 <div class="parent-icon"><i class="material-icons-outlined">description</i>
                 </div>
                 <div class="menu-title">Пособие</div>
               </a>
-            </li>
+            </li> --}}
             <li>
-              <a href="javascrpt:;">
-                <div class="parent-icon"><i class="material-icons-outlined">support</i>
+              <a href="https://t.me/+3SNmQ4ymS3k4ZDQy" target="_blank">
+                <div class="parent-icon"><i class="lni lni-telegram-original"></i>
                 </div>
                 <div class="menu-title">Тех. поддержка</div>
               </a>

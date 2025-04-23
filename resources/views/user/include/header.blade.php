@@ -17,8 +17,8 @@
         <div class="profile-info pt-5 d-flex align-items-center justify-content-between">
           <div class="">
             <h3>{{ $user->name }} {{ $user->surname }}</h3>
-            <p class="mb-0">Engineer at BB Agency Industry<br>
-             New York, United States</p>
+            {{-- <p class="mb-0">Engineer at BB Agency Industry<br>
+             New York, United States</p> --}}
           </div>
           <div class="">
             @if ($user->id == auth()->id())

@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+/*
+    |--------------------------------------------------------------------------
+    | Контроллер для отправки ссылки на email на подтверждение аккаунта
+    |--------------------------------------------------------------------------
+*/
+
 class EmailVerificationController extends Controller
 {
     // Отправка письма с ссылкой подтверждения

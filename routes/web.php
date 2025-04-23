@@ -9,13 +9,24 @@ use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 
+/*
+    |--------------------------------------------------------------------------
+    | Middleware
+    |--------------------------------------------------------------------------
+    |
+    | auth - только авторизовынный
+    | verify - с проверенным email
+    | 
+    |
+*/
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-//Auth::routes();
 Auth::routes(['verify' => true]);
 
+// Главная страница для гостей
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/logout', 'App\Http\Controllers\Auth\AuthController@logout')->name('auth.logout');
@@ -38,6 +49,7 @@ Route::prefix('lk')->middleware(['auth'])->group(function () {
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->middleware(['track_referral_clicks'])->name('register');
 
+// Переадрисация письма с ссылкой подтверждения email
 Route::prefix('lk')->group(function () {
     // Отправка письма с подтверждением
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])
@@ -49,7 +61,19 @@ Route::prefix('lk')->group(function () {
         ->middleware(['auth', 'signed'])
         ->name('verification.verify');
 });
+
+// Редирект для не авторизованных пользователей с главной на /lk
+Route::get('/', function () {
+    return redirect('/login');
+});
+
+// Редирект для авторизованных пользователей с главной на /lk
+Route::get('/', function () {
+    return redirect('/lk');
+})->middleware('auth');
     
+
+
 // Есть запрос на profile
 // $url_profile = explode('/', URL::current());
 
