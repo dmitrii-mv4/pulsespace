@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('levelaccount_levels', function (Blueprint $table) {
             $table->id();
             $table->string('title'); 
             $table->string('accessibly'); // доступные возсожности на текущем уровне
@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         // Добавление записей в БД
-        DB::table('levels')->insert([
+        DB::table('levelaccount_levels')->insert([
             [
                 'id' => 1,
                 'title' => '1 уровень',
@@ -52,6 +52,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('levelaccount_levels');
     }
 };

@@ -37,6 +37,8 @@ Route::prefix('lk')->middleware(['auth'])->group(function () {
 
     require_once 'wishlist.php';
 
+    require_once 'blog.php';
+
     Route::prefix('taskmanager')->group(function () {
         require_once 'task_manager.php';
     });

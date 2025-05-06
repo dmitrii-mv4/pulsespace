@@ -11,7 +11,8 @@ class WishList extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = ['description']; // разрешить любой запрос на добавление в БД
+    protected $table = 'wisheslist_lists';
+    protected $guarded = ['description']; 
 
     public function user_create()
     {
@@ -28,7 +29,7 @@ class WishList extends Model
 
     public function wishes()
     {
-        return $this->belongsToMany(Wish::class, 'wish_bind_lists', 'list_id', 'wish_id');
+        return $this->belongsToMany(Wish::class, 'wisheslist_wish_join_lists', 'list_id', 'wish_id');
     }
 
     public function getRouteKeyName()

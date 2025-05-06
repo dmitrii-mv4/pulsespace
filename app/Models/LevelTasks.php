@@ -11,8 +11,8 @@ class LevelTasks extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'level_tasks'; // привязать к таблице
-    protected $guarded = false; // разрешить любой запрос на добавление в БД
+    protected $table = 'levelaccount_level_tasks'; 
+    protected $guarded = false; 
 
     public function level()
     {

@@ -11,6 +11,7 @@ class Wish extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'wisheslist_wishes';
     protected $fillable = ['id', 'title', 'price', 'user_id', 'link_buy', 'old_image', 'image', 'description', 'done', 'lists']; 
 
     public function user_create()
@@ -25,15 +26,8 @@ class Wish extends Model
 
     public function lists()
     {
-        return $this->belongsToMany(WishList::class, 'wish_bind_lists', 'wish_id', 'list_id');
+        return $this->belongsToMany(WishList::class, 'wisheslist_wish_join_lists', 'wish_id', 'list_id');
     }
-
-    // public function lists()
-    // {
-    //     return $this->belongsToMany(WishList::class, 'wish_bind_lists')
-    //         ->withTimestamps()
-    //         ->whereNull('wish_bind_lists.deleted_at');
-    // }
 
     public function list()
     {

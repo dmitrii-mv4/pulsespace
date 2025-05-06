@@ -20,7 +20,17 @@
                 <div class="card-body">
 
                     <div class="datetime-picker">
-                        <h5>Персональная информация</h5>
+
+                        <div style="display: flex; justify-content: space-between;">
+                            <h5>Персональная информация</h5>
+
+                            <div>
+                                @if ($user->id == auth()->id())
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-grd-primary rounded-5 px-4 btn-grd btn-grd-primary"><i class="fadeIn animated bx bx-edit-alt"></i> Редактировать</a>
+                                @endif
+                            </div>
+                        </div>
+                        
 
                         @if (!empty($user->name))
                             <div class="row">
@@ -111,10 +121,10 @@
                           <p class="col-sm-9">Класический</p>
                       </div>
 
-                      <div class="row">
+                      {{-- <div class="row">
                           <p class="col-sm-3 col-form-label">Уровень аккаунта:</p>
                           <p class="col-sm-9">{{ $level['title'] }}</p>
-                      </div>
+                      </div> --}}
 
                       <div class="row">
                         <p class="col-sm-3 col-form-label">Реферальная ссылка:</p>

@@ -37,10 +37,26 @@
     <link href="/assets/sass/bordered-theme.css" rel="stylesheet">
     <link href="/assets/sass/responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/extra-icons.css">
+    <link href="/assets/plugins/fancy-file-uploader/fancy_fileupload.css" rel="stylesheet">
   
   </head>
 
   <body>
+    {{-- Уведомления --}}
+    @if(session('success'))
+    <div class="notification-toast" id="notification-toast">
+        <div class="notification-icon bg-success">
+            <a href="javascript:;" class="mb-3 text-white rounded-circle d-flex align-items-center justify-content-center">
+                <i class="material-icons-outlined fs-2">check_circle</i>
+            </a>
+        </div>
+        <div class="notification-content">
+            {{-- <h5 class="notification-title">Успешно!</h5> --}}
+            <p class="notification-text">{{ session('success') }}</p>
+        </div>
+        <button type="button" class="btn-close" onclick="hideNotification()"></button>
+    </div>
+    @endif
 
     <!--start header-->
     <header class="top-header">
@@ -670,13 +686,13 @@
               </a>
             </li>
 
-            <li>
+            {{-- <li>
               <a href="/lk/user/{{ Auth::id() }}/lv">
                 <div class="parent-icon"><i class="lni lni-diamond-alt"></i>
                 </div>
                 <div class="menu-title">Уровень аккаунта</div>
               </a>
-            </li>
+            </li> --}}
 
             <li>
               <a href="/lk/refferal">
@@ -692,6 +708,13 @@
                 <div class="parent-icon"><i class="lni lni-heart-filled"></i>
                 </div>
                 <div class="menu-title">Мои желания</div>
+              </a>
+            </li>
+            <li>
+              <a href="/lk/blog">
+                <div class="parent-icon"><i class="fadeIn animated bx bx-news"></i>
+                </div>
+                <div class="menu-title">Лента</div>
               </a>
             </li>
             
@@ -929,6 +952,8 @@
     </div>
     <!--start switcher-->
   
+    <script src="/assets/js/notification.js"></script>
+
     <!--bootstrap js-->
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
   
@@ -950,6 +975,21 @@
     <script>
        new PerfectScrollbar(".user-list")
     </script>
+    
+    <script src="/assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
+    <script src="/assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
+    <script src="/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"></script>
+    <script src="/assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js"></script>
+
+    {{-- для загрузки множества изображений для постов --}}
+    <script>
+      $('#fancy-file-upload').FancyFileUpload({
+          params: {
+              action: 'fileuploader'
+          },
+          maxfilesize: 1000000
+      });
+  </script>
   
   </body>
   

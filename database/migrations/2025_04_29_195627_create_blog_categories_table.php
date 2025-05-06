@@ -11,17 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wish_lists', function (Blueprint $table) {
+        Schema::create('blog_categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('url')->default('');
-            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('user_id', 'wish_lists_user_idx');
-            $table->foreign('user_id', 'wish_lists_user_fk')->on('users')->references('id');
         });
     }
 
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wish_lists');
+        Schema::dropIfExists('blog_categories');
     }
 };

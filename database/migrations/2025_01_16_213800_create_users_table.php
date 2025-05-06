@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('level_id')->default(1);
             $table->index('level_id', 'level_idx');
-            $table->foreign('level_id', 'level_fk')->on('levels')->references('id');
+            $table->foreign('level_id', 'level_fk')->on('levelaccount_levels')->references('id');
 
             $table->string('name');
             $table->string('surname')->default('')->nullable();
@@ -36,8 +36,8 @@ return new class extends Migration
             $table->string('date_of_birth')->default('')->nullable();
             $table->string('phone')->default('')->nullable();
             $table->decimal('money')->default(0);
-            $table->string('avatar')->default('/assets/images/user/no_avatar.jpg');
-            $table->string('cover')->default('/assets/images/user/no_cover.png');
+            $table->string('avatar')->default('/assets/images/no_avatar.png');
+            $table->string('cover')->default('/assets/images/no_cover.png');
 
             // реферальная программа 
             // $table->unsignedBigInteger('users_referrals')->default(1);

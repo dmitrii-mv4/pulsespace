@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('level_tasks_bind_users', function (Blueprint $table) {
+        Schema::create('levelaccount_level_tasks_bind_users', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id'); // id пользователя
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->index('level_task_id', 'user_level_task_task_idx');
 
             $table->foreign('user_id', 'user_level_task_user_fk')->on('users')->references('id');
-            $table->foreign('level_task_id', 'user_level_task_task_fk')->on('level_tasks')->references('id');
+            $table->foreign('level_task_id', 'user_level_task_task_fk')->on('levelaccount_level_tasks')->references('id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('level_tasks_bind_users');
+        Schema::dropIfExists('levelaccount_level_tasks_bind_users');
     }
 };

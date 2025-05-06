@@ -176,7 +176,7 @@ class UserController extends Controller
                 'updated_at' => date("Y-m-d H:i:s"),
             ]);
 
-        return redirect()->route('user.user', $dataValidated['id']);
+        return redirect()->route('user.user', $dataValidated['id'])->with('success', 'Ваш профиль обновлён!');
     }
 
     public function level(User $user)
@@ -192,17 +192,17 @@ class UserController extends Controller
         // dd($user_level_bind_tasks);
 
         // Получаем все задачи уровня пользователя и их прогресс
-        $user_level_bind_tasks = DB::table('level_bind_tasks')
-            ->where('level_bind_tasks.level_id', $user->level_id)
-            ->join('level_tasks', 'level_bind_tasks.level_task_id', '=', 'level_tasks.id')
-            ->leftJoin('level_tasks_bind_users', function($join) use ($user) {
-                $join->on('level_bind_tasks.level_task_id', '=', 'level_tasks_bind_users.level_task_id')
-                    ->where('level_tasks_bind_users.user_id', $user->id);
+        $user_level_bind_tasks = DB::table('levelaccount_level_bind_tasks')
+            ->where('levelaccount_level_bind_tasks.level_id', $user->level_id)
+            ->join('levelaccount_level_tasks', 'levelaccount_level_bind_tasks.level_task_id', '=', 'levelaccount_level_tasks.id')
+            ->leftJoin('levelaccount_level_tasks_bind_users', function($join) use ($user) {
+                $join->on('levelaccount_level_bind_tasks.level_task_id', '=', 'levelaccount_level_tasks_bind_users.level_task_id')
+                    ->where('levelaccount_level_tasks_bind_users.user_id', $user->id);
                 })
             ->select(
-                'level_tasks.title',
-                'level_bind_tasks.completion',
-                DB::raw('COALESCE(level_tasks_bind_users.done, 0) as done')
+                'levelaccount_level_tasks.title',
+                'levelaccount_level_bind_tasks.completion',
+                DB::raw('COALESCE(levelaccount_level_tasks_bind_users.done, 0) as done')
             )
             ->get();
 
@@ -259,7 +259,7 @@ class UserController extends Controller
         // Желания текущего списка + проверка принадлежности пользователю
         $wishes = $list->wishes()
             ->where('user_id', $user->id)
-            ->whereNull('wish_bind_lists.deleted_at')
+            ->whereNull('wisheslist_wish_bind_lists.deleted_at')
             ->get();
 
         // выводим кол-во всех желаний
@@ -277,5 +277,11 @@ class UserController extends Controller
 
         $request->user()->sendEmailVerificationNotification();
         return back()->with('message', 'Письмо подтверждения отправлено!');
+    }
+
+    // выводим собственные посты
+    public function blog_post(User $user)
+    {
+        return view('user/blog/index', compact('user'));
     }
 }

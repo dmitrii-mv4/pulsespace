@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('level_bind_tasks', function (Blueprint $table) {
+        Schema::create('levelaccount_level_bind_tasks', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('level_id'); // id уровня
@@ -21,15 +21,15 @@ return new class extends Migration
             $table->index('level_id', 'level_task_level_idx');
             $table->index('level_task_id', 'level_task_task_idx');
 
-            $table->foreign('level_id', 'level_task_level_fk')->on('levels')->references('id');
-            $table->foreign('level_task_id', 'level_task_task_fk')->on('level_tasks')->references('id');
+            $table->foreign('level_id', 'level_task_level_fk')->on('levelaccount_levels')->references('id');
+            $table->foreign('level_task_id', 'level_task_task_fk')->on('levelaccount_level_tasks')->references('id');
 
             $table->timestamps();
             $table->softDeletes();
         });
 
         // Добавление записей в БД
-        DB::table('level_bind_tasks')->insert([
+        DB::table('levelaccount_level_bind_tasks')->insert([
             // для 1 уровня
             [
                 'id' => 1,
@@ -69,6 +69,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('level_bind_tasks');
+        Schema::dropIfExists('levelaccount_level_bind_tasks');
     }
 };

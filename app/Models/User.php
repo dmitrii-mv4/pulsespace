@@ -70,7 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function user_level_tasks()
     {
-        return $this->belongsToMany(LevelTasks::class, 'level_tasks_bind_users', 'user_id', 'level_task_id')->withPivot('done');
+        return $this->belongsToMany(LevelTasks::class, 'levelaccount_level_tasks_bind_users', 'user_id', 'level_task_id')->withPivot('done');
     }
 
     // public function level_tasks()

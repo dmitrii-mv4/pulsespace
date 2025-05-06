@@ -93,23 +93,23 @@ class RegisterController extends Controller
         ]);
 
         // добавление базовых задач для уровня аккаунта NULL
-        $data_level_tasks = array(
-            array(
-                'user_id'=> $user->id,
-                'level_task_id'=> 1,
-                'done'=> 0,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=> date('Y-m-d H:i:s')
-            ),
-            array(
-                'user_id'=> $user->id,
-                'level_task_id'=> 2,
-                'done'=> 0,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=> date('Y-m-d H:i:s')
-            ),
-        );
-        LevelTasksBindUsers::insert($data_level_tasks);
+        // $data_level_tasks = array(
+        //     array(
+        //         'user_id'=> $user->id,
+        //         'level_task_id'=> 1,
+        //         'done'=> 0,
+        //         'created_at'=>date('Y-m-d H:i:s'),
+        //         'updated_at'=> date('Y-m-d H:i:s')
+        //     ),
+        //     array(
+        //         'user_id'=> $user->id,
+        //         'level_task_id'=> 2,
+        //         'done'=> 0,
+        //         'created_at'=>date('Y-m-d H:i:s'),
+        //         'updated_at'=> date('Y-m-d H:i:s')
+        //     ),
+        // );
+        // LevelTasksBindUsers::insert($data_level_tasks);
 
         return $user;
     }

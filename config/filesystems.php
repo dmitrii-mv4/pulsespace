@@ -53,6 +53,14 @@ return [
             'throw' => false,
         ],
 
+        'blog' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/blog'),
+            'url' => env('APP_URL').'/storage/images/blog',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

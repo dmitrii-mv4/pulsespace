@@ -21,14 +21,13 @@
              New York, United States</p> --}}
           </div>
           <div class="">
-            @if ($user->id == auth()->id())
-              <a href="{{ route('user.edit', $user->id) }}" class="btn btn-grd-primary rounded-5 px-4 btn-grd btn-grd-primary"><i class="fadeIn animated bx bx-edit-alt"></i> Редактировать</a>
-            @endif
+            <!-- -->
           </div>
         </div>
         <hr class="card rounded-4 border-top border-4 border-primary border-gradient-1" />
         <div class="kewords d-flex align-items-center gap-3 mt-4 overflow-x-auto">
            <a href="/lk/user/{{ $user->id }}" class="btn btn-sm btn-light rounded-5 px-4">Профиль</a>
+           <a href="/lk/user/{{ $user->id }}/blog" class="btn btn-sm btn-light rounded-5 px-4">Блог</a>
            <a href="/lk/user/{{ $user->id }}/wishlist" class="btn btn-sm btn-light rounded-5 px-4">Желания пользователя</a>
         </div>
     </div>

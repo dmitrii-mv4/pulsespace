@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('level_tasks', function (Blueprint $table) {
+        Schema::create('levelaccount_level_tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->timestamps();
@@ -19,7 +19,7 @@ return new class extends Migration
         });
 
         // Добавление записей в БД
-        DB::table('level_tasks')->insert([
+        DB::table('levelaccount_level_tasks')->insert([
             [
                 'id' => 1,
                 'title' => 'Добавить желания',
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('level_tasks');
+        Schema::dropIfExists('levelaccount_level_tasks');
     }
 };

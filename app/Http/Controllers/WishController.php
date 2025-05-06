@@ -67,7 +67,7 @@ class WishController extends Controller
             $wish->lists()->attach($dataValidated['lists']);
         }
 
-        return redirect()->route('user.wishlist.index', $user->id);
+        return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Желание успешно загадано!');
     }
 
     public function update(User $user, Wish $wish, WishUpdateRequest $request)
@@ -141,7 +141,7 @@ class WishController extends Controller
             $wish->lists()->sync($request->input('lists', []));
         }
 
-        return redirect()->route('user.wishlist.index', $user->id);
+        return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Желание успешно обновлено!');
     }
 
     public function update_done(User $user, Wish $wish, Request $request)
@@ -182,6 +182,6 @@ class WishController extends Controller
 
         $wish->delete();
 
-        return redirect()->route('user.wishlist.index', $user->id);
+        return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Желание успешно удалено!');
     }
 }

@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\WishList;
 use App\Models\Wish;
-use App\Models\LevelTasksBindUsers;
+// use App\Models\LevelTasksBindUsers;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Wishlist\WishListCreateRequest;
 use App\Http\Requests\Wishlist\WishListUpdateRequest;
@@ -37,7 +37,7 @@ class WishListController extends Controller
             'description' => $dataValidated['description'],
         ]);
 
-         return redirect()->route('user.wishlist.index', $user->id);
+         return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Лист желаний успешно создан!');
     }
 
     public function update(User $user, WishList $list, WishListUpdateRequest $request)
