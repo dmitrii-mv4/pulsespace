@@ -210,6 +210,7 @@ class BlogController extends Controller
             // Полное удаление связанных записей
             $post->images()->forceDelete();    // Из таблицы blog_post_images
             $post->categories()->detach();     // Из таблицы blog_posts_join_categories
+            $post->views()->forceDelete();          // Из таблицы blog_post_views
             
             // Полное удаление поста
             $post->forceDelete(); 

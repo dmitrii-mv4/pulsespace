@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('post_id')->constrained('blog_post')->onDelete('cascade');
             $table->string('ip_address', 45);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
