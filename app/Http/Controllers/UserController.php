@@ -246,7 +246,7 @@ class UserController extends Controller
         // выводим кол-во всех желаний
         $wishes_count = Wish::where('user_id', $user['id'])->count();
 
-        return view('user/wishlist/index', compact('user', 'role', 'lists', 'wishes', 'wishes_count'));
+        return view('wishlist/index', compact('user', 'role', 'lists', 'wishes', 'wishes_count'));
     }
 
     public function wish_list(User $user, WishList $list)
@@ -259,13 +259,13 @@ class UserController extends Controller
         // Желания текущего списка + проверка принадлежности пользователю
         $wishes = $list->wishes()
             ->where('user_id', $user->id)
-            ->whereNull('wisheslist_wish_bind_lists.deleted_at')
+            ->whereNull('wisheslist_wish_join_lists.deleted_at')
             ->get();
 
         // выводим кол-во всех желаний
         $wishes_count = Wish::where('user_id', $user['id'])->count();
 
-        return view('user/wishlist/list', compact('user', 'role', 'lists', 'list', 'wishes', 'wishes_count'));
+        return view('wishlist/list', compact('user', 'role', 'lists', 'list', 'wishes', 'wishes_count'));
     }
 
     // Повторная отправка письма на потдверждение Email

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Wish;
@@ -11,6 +10,7 @@ use App\Http\Requests\Wishlist\WishCreateRequest;
 use App\Http\Requests\Wishlist\WishUpdateRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 
 class WishController extends Controller
 {
@@ -67,7 +67,7 @@ class WishController extends Controller
             $wish->lists()->attach($dataValidated['lists']);
         }
 
-        return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Желание успешно загадано!');
+        return redirect()->route('wishlist.index', $user->id)->with('success', 'Желание успешно загадано!');
     }
 
     public function update(User $user, Wish $wish, WishUpdateRequest $request)
@@ -141,7 +141,7 @@ class WishController extends Controller
             $wish->lists()->sync($request->input('lists', []));
         }
 
-        return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Желание успешно обновлено!');
+        return redirect()->route('wishlist.index', $user->id)->with('success', 'Желание успешно обновлено!');
     }
 
     public function update_done(User $user, Wish $wish, Request $request)
@@ -155,7 +155,33 @@ class WishController extends Controller
             'done' => $request->input('wish_done')
         ]);
 
-        return redirect()->route('user.wishlist.index', $user->id);
+        return redirect()->route('wishlist.index', $user->id)->with('success', 'Желание исполнено!');
+    }
+
+    public function update_booking(User $user, Wish $wish, Request $request)
+    {
+        if ($request->input('wish_booking') == 'true')
+        {
+            $wish->update([
+                'user_ip_booking' => request()->ip(),
+                'date_booking' => date('Y-m-d H:i:s'),
+            ]);
+
+            return redirect()->route('wishlist.index', $user->id)->with('success', 'Вы забронировали желание!');
+        }    
+    }
+
+    public function booking_destroy(User $user, Wish $wish, Request $request)
+    {
+        if ($request->input('wish_booking_delete') == 'true')
+        {
+            $wish->update([
+                'user_ip_booking' => NULL,
+                'date_booking' => NULL,
+            ]);
+
+            return redirect()->route('wishlist.index', $user->id)->with('success', 'Вы сняли бронирование с этого желания!');
+        }  
     }
 
     public function destroy(User $user, Wish $wish)
@@ -182,6 +208,6 @@ class WishController extends Controller
 
         $wish->delete();
 
-        return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Желание успешно удалено!');
+        return redirect()->route('wishlist.index', $user->id)->with('success', 'Желание успешно удалено!');
     }
 }

@@ -37,7 +37,7 @@ class WishListController extends Controller
             'description' => $dataValidated['description'],
         ]);
 
-         return redirect()->route('user.wishlist.index', $user->id)->with('success', 'Лист желаний успешно создан!');
+         return redirect()->route('wishlist.index', $user->id)->with('success', 'Лист желаний успешно создан!');
     }
 
     public function update(User $user, WishList $list, WishListUpdateRequest $request)

@@ -11,7 +11,7 @@
                 <div class="modal-body">
 
                     <form class="form-bookmark needs-validation" method="POST"
-                        action="{{ route('user.wishlist.update', [$user->id, $wish->id]) }}"
+                        action="{{ route('wishlist.update', [$user->id, $wish->id]) }}"
                         enctype="multipart/form-data">
                         @csrf
                         @method('patch')

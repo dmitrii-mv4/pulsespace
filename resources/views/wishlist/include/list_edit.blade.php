@@ -2,7 +2,7 @@
     style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-        <form class="form-w-100" method="POST" action="{{ route('user.wishlist.list.update', [$user->id, $list->id]) }}"
+        <form class="form-w-100" method="POST" action="{{ route('wishlist.list.update', [$user->id, $list->id]) }}"
             enctype="multipart/form-data">
             @csrf
             @method('patch')

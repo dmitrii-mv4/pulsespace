@@ -34,7 +34,11 @@
                         @endif
                     </div>
 
-                    <div style="margin: 15px 0px 15px 0px;">{{ $post->created_at }}</div>
+                    <div style="margin: 15px 0px 15px 0px;">
+                        {{ $post->created_at }} &bull;
+
+                        Просмотров: {{$postViews}}
+                    </div>
 
                     {{-- Слайдер изображений --}}
                     <div id="carouselPostIndicators" class="carousel slide" data-bs-ride="carousel">

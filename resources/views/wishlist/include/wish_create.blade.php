@@ -3,7 +3,7 @@
     <div class="modal-wishlist-create modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
 
-            <form class="form-w-100" method="POST" action="{{ route('user.wishlist.create', $user->id) }}"
+            <form class="form-w-100" method="POST" action="{{ route('wishlist.create', $user->id) }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('patch')

@@ -29,6 +29,10 @@
                                                     <div class="row" id="bookmarkData">
                                                         <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
 
+                                                            @if (empty($posts))
+                                                                Постов ещё нет.
+                                                            @endif
+
                                                             @foreach ($posts as $post)
                                                                 <div class="col">
                                                                     <div class="card">
@@ -38,11 +42,19 @@
                                                                             <p class="card-text">{{ $post['description'] }}</p>
 
                                                                             {{-- Выводим категории --}}
-                                                                            <div class="post-categories">
-                                                                                @foreach($post['categories'] as $category)
-                                                                                    <span class="category-post badge bg-grd-royal" style="">{{ $category['title'] }}</span>
-                                                                                @endforeach
+                                                                            <div class="d-flex justify-content-between">
+                                                                                <div class="blog-post-categories">
+
+                                                                                    @foreach ($post['categories'] as $categories)
+                                                                                        <span class="category-post badge bg-grd-royal" style="">{{ $categories['title'] }}</span>
+                                                                                    @endforeach
+
+                                                                                </div>
+                                                                                <div class="blog-post-categories">
+                                                                                    Просмотров: {{ $post['views_count'] }}
+                                                                                </div>
                                                                             </div>
+                                                                  
                                                                         </div>
                                                                     </div>
                                                                 </div>

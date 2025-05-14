@@ -616,6 +616,18 @@
               <span class="badge-notify">8</span>
             </a>
           </li> --}}
+
+          <li class="nav-item dropdown">
+            <a href="javascrpt:;" class="user-add dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
+              <i class="lni lni-plus" style="margin: 0 auto; text-align: center;"></i>
+            </a>
+            <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
+              <a href="{{ route('blog.post.create') }}" class="dropdown-item d-flex align-items-center gap-2 py-2">
+                <i class="material-icons-outlined">person_outline</i>Создать пост
+              </a>
+            </div>
+          </li>
+
           <li class="nav-item dropdown">
             <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
               @if (!empty(Auth::user()->avatar))

@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\BlogCategory;
 use App\Models\BlogPostImage;
+use App\Models\BlogPostView;
 
 class Blog extends Model
 {
     use SoftDeletes;
 
     protected $table = 'blog_post';
-    protected $guarded = false;
+    protected $fillable = ['title', 'description', 'author_user_id'];
 
     public function categories()
     {
@@ -27,5 +28,17 @@ class Blog extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'author_user_id');
+    }
+
+    // Обновляем просмотры поста
+    public function views()
+    {
+        return $this->hasMany(BlogPostView::class, 'post_id'); 
+    }
+
+    // Метод для подсчёта уникальных просмотров
+    public function getViewsCountAttribute()
+    {
+        return $this->views()->count();
     }
 }

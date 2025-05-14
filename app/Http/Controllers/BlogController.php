@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogPostView;
 use App\Models\User;
 use App\Http\Requests\Blog\BlogCreateRequest;
 use App\Http\Requests\Blog\BlogUpdateRequest;
@@ -18,11 +19,10 @@ class BlogController extends Controller
     public function index()
     {
         $posts = Blog::with(['categories', 'images', 'user'])
+        ->withCount('views as views_count')
             ->orderByDesc('created_at')
             ->get();
         $posts = $posts->toArray(); 
-
-        //dd($posts);
 
         return view('blog/index', compact('posts'));
     }
@@ -32,6 +32,7 @@ class BlogController extends Controller
     {
         // выводим все последнего поста
         $posts = Blog::with('categories', 'images')
+            ->withCount('views as views_count')
             ->orderByDesc('created_at')
             ->get();
         $posts = $posts->toArray();
@@ -84,6 +85,24 @@ class BlogController extends Controller
 
     public function post(Blog $post)
     {
+        $ipAddress = request()->ip();
+
+        // Проверяем существование записи
+        $viewExists = $post->views()
+            ->where('ip_address', $ipAddress)
+            ->exists();
+
+        if (!$viewExists) {
+            // Создаём новую запись о просмотре
+            BlogPostView::create([
+                'post_id' => $post->id,
+                'ip_address' => $ipAddress
+            ]);
+        }
+
+        // Кол-во просмотров поста
+        $postViews = $post->getViewsCountAttribute();
+
         // Жадно загружаем изображения и категории
         $post->load(['images', 'categories']);
 
@@ -91,7 +110,8 @@ class BlogController extends Controller
     
         return view('blog/post', [
             'post' => $post,
-            'images' => $post['images']
+            'images' => $post['images'],
+            'postViews' => $postViews
         ]);
     }
 

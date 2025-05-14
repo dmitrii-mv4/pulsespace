@@ -17,6 +17,40 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // Добавление записей в БД
+        DB::table('blog_categories')->insert([
+            [
+                'id' => 1,
+                'title' => 'Маркетинг',
+                'created_at' => date("Y-m-d H:i:s")
+            ],
+            [
+                'id' => 2,
+                'title' => 'SMM',
+                'created_at' => date("Y-m-d H:i:s")
+            ],
+            [
+                'id' => 3,
+                'title' => 'SEO',
+                'created_at' => date("Y-m-d H:i:s")
+            ],
+            [
+                'id' => 4,
+                'title' => 'Продажи',
+                'created_at' => date("Y-m-d H:i:s")
+            ],
+            [
+                'id' => 5,
+                'title' => 'Разработка',
+                'created_at' => date("Y-m-d H:i:s")
+            ],
+            [
+                'id' => 6,
+                'title' => 'Дизайн',
+                'created_at' => date("Y-m-d H:i:s")
+            ],
+        ]);
     }
 
     /**

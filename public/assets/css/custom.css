@@ -182,3 +182,16 @@
 .blog-post-categories {
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
 }
+
+.user-add {
+    margin: 0 20px 0px 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.user-add:hover {
+    background: #dddddd;
+}

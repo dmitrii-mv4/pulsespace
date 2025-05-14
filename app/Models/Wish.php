@@ -12,7 +12,7 @@ class Wish extends Model
     use SoftDeletes;
 
     protected $table = 'wisheslist_wishes';
-    protected $fillable = ['id', 'title', 'price', 'user_id', 'link_buy', 'old_image', 'image', 'description', 'done', 'lists']; 
+    protected $fillable = ['id', 'title', 'price', 'user_id', 'user_ip_booking', 'date_booking', 'link_buy', 'old_image', 'image', 'description', 'done', 'lists']; 
 
     public function user_create()
     {

@@ -63,7 +63,7 @@
                                   <div style="display: flex; justify-content: space-between;">
                                     <div style="width: 45%;">
                                       <p>Реферальная ссылка: {{ $userReferralLink }}</p>
-                                      <p>3% с любых покупок ваших рефералов</p>
+                                      <p>10% с любых покупок ваших рефералов</p>
                                     </div>
 
                                     <div style="width: 45%;">

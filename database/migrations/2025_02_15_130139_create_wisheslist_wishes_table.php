@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->string('link_buy')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->boolean('done')->default(false);
+            $table->string('user_ip_booking')->nullable();
+            $table->date('date_booking')->nullable();
+            $table->boolean('done')->nullable();
             $table->string('description')->nullable();
             $table->string('image');
             $table->timestamps();

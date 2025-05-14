@@ -58,10 +58,20 @@
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-                      
-                        <div class="blog-post-categories">
-                            <span class="category-post badge bg-grd-royal" style="">Маркетинг</span>
+
+                        <div class="d-flex justify-content-between border-top pt-4">
+                            <div class="blog-post-categories">
+
+                                @foreach ($post['categories'] as $categories)
+                                    <span class="category-post badge bg-grd-royal" style="">{{ $categories['title'] }}</span>
+                                @endforeach
+
+                            </div>
+                            <div class="blog-post-categories">
+                                Просмотров: {{ $post['views_count'] }}
+                            </div>
                         </div>
+                      
                     </div>
                 </div>
             @endforeach

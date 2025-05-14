@@ -29,9 +29,6 @@ Route::controller(UserController::class)->group(function () {
 
     Route::get('/user/{user}/lv', 'level')->middleware(['email_verified'])->name('user.level');
 
-    Route::get('/user/{user}/wishlist', 'wish')->middleware(['email_verified'])->name('user.wishlist.index');
-    Route::get('/user/{user}/wishlist/list/{list}', 'wish_list')->middleware(['email_verified'])->name('user.wishlist.list');
-
     //Route::patch('/user/{user}/level/up', [UserLevelUpController::class, 'level_up_1'])->middleware(['email_verified'])->name('user.level.up');
 
     Route::patch('/user/{user}/level/up', [LevelController::class, 'level_up'])->middleware(['email_verified'])->name('user.level.up');

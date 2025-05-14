@@ -87,7 +87,7 @@
 
                             <div class="widget-info-user">
                                 <div>Вознаграждение с рефералов: </div>
-                                <div>3%</div>
+                                <div>10%</div>
                             </div>
 
                             <div class="widget-info-user">

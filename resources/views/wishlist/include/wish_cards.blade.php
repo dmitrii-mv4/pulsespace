@@ -32,7 +32,7 @@
                                         </div>
 
                                         <div class="wish-option-item">
-                                            <form action="{{ route('user.wishlist.destroy', [$user->id, $wish->id]) }}" method="POST">
+                                            <form action="{{ route('wishlist.destroy', [$user->id, $wish->id]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
 

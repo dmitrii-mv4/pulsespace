@@ -3,16 +3,16 @@
 @section('content')
 
     <!-- popup wishlist list create -->
-    @include('user/wishlist/include/list_create')
+    @include('wishlist/include/list_create')
 
     <!-- popup wish create -->
-    @include('user/wishlist/include/wish_create')
+    @include('wishlist/include/wish_create')
 
     <!-- просмотр желания -->
-    @include('user/wishlist/include/wish_views')
+    @include('wishlist/include/wish_views')
     
     <!-- редактирование желания -->
-    @include('user/wishlist/include/wish_edit')
+    @include('wishlist/include/wish_edit')
 
     <div class="container-fluid">
         <div class="user-profile">
@@ -25,7 +25,7 @@
                     <div class="card">
                         <div class="row">
 
-                            @include('user/wishlist/include/lists')
+                            @include('wishlist/include/lists')
                             
                             <div class="col-md-6 p-0"> <!-- right --> </div>
                         </div>
@@ -50,7 +50,7 @@
                                                 </button>
                                             </div>
                                             
-                                            @include('user/wishlist/include/wish_cards')
+                                            @include('wishlist/include/wish_cards')
 
                                         </div>
                                     </div>

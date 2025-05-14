@@ -9,7 +9,7 @@
           </a>
         </div>
         <div class="modal-body">
-            <form class="form-w-100" method="POST" action="{{ route('user.wishlist.list.create', $user->id) }}" enctype="multipart/form-data">
+            <form class="form-w-100" method="POST" action="{{ route('wishlist.list.create', $user->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
     
