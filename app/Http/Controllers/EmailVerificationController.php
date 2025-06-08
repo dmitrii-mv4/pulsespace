@@ -18,7 +18,7 @@ class EmailVerificationController extends Controller
     public function sendVerificationEmail(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended('/lk/user/'.auth()->user()->id);
+            return redirect()->intended('/user/'.auth()->user()->id);
         }
 
         $request->user()->sendEmailVerificationNotification();
@@ -31,6 +31,6 @@ class EmailVerificationController extends Controller
     {
         $request->fulfill();
 
-        return redirect('/lk/user/'.auth()->user()->id)->with('status', 'Email успешно подтверждён!');
+        return redirect('/user/'.auth()->user()->id)->with('status', 'Email успешно подтверждён!');
     }
 }

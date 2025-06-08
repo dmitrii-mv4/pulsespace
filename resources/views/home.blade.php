@@ -5,7 +5,7 @@
 <!-- просмотр желания -->
     @include('wishlist/include/wish_views')
 
-    <div class="col-xxl-12 col-xl-12 col-md-12 box-col-8">
+    {{-- <div class="col-xxl-12 col-xl-12 col-md-12 box-col-8">
         <div class="email-right-aside bookmark-tabcontent">
             <div class="card email-body">
                 <div class="ps-0">
@@ -35,9 +35,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-xxl-12 col-xl-12 col-md-12 box-col-8">
+    {{-- <div class="col-xxl-12 col-xl-12 col-md-12 box-col-8">
         <div class="email-right-aside bookmark-tabcontent">
             <div class="card email-body">
                 <div class="ps-0">
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="col-xxl-12 col-xl-12 col-md-12 box-col-8">
         <div class="email-right-aside bookmark-tabcontent">
