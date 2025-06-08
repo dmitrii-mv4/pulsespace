@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="{{ auth()->user()->service_theme }}">
-  <head>
+<html lang="en" data-bs-theme="{{ Auth::check() ? auth()->user()->service_theme : 'light' }}">
+
+<head>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -15,7 +16,7 @@
     <!-- loader-->
     <link href="/assets/css/pace.min.css" rel="stylesheet">
     <script src="/assets/js/pace.min.js"></script>
-  
+
     <!--plugins-->
     <link href="/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/plugins/metismenu/metisMenu.min.css">
@@ -23,7 +24,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/plugins/simplebar/css/simplebar.css">
     <link rel="stylesheet" type="text/css" href="/assets/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
-	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
     <!--bootstrap css-->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -38,34 +40,40 @@
     <link href="/assets/sass/responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/extra-icons.css">
     <link href="/assets/plugins/fancy-file-uploader/fancy_fileupload.css" rel="stylesheet">
-  
-  </head>
 
-  <body>
+</head>
+
+<body>
     {{-- Уведомления --}}
-    @if(session('success'))
-    <div class="notification-toast" id="notification-toast">
-        <div class="notification-icon bg-success">
-            <a href="javascript:;" class="mb-3 text-white rounded-circle d-flex align-items-center justify-content-center">
-                <i class="material-icons-outlined fs-2">check_circle</i>
-            </a>
+    @if (session('success'))
+        <div class="notification-toast" id="notification-toast">
+            <div class="notification-icon bg-success">
+                <a href="javascript:;"
+                    class="mb-3 text-white rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="material-icons-outlined fs-2">check_circle</i>
+                </a>
+            </div>
+            <div class="notification-content">
+                {{-- <h5 class="notification-title">Успешно!</h5> --}}
+                <p class="notification-text">{{ session('success') }}</p>
+            </div>
+            <button type="button" class="btn-close" onclick="hideNotification()"></button>
         </div>
-        <div class="notification-content">
-            {{-- <h5 class="notification-title">Успешно!</h5> --}}
-            <p class="notification-text">{{ session('success') }}</p>
-        </div>
-        <button type="button" class="btn-close" onclick="hideNotification()"></button>
-    </div>
     @endif
 
     <!--start header-->
     <header class="top-header">
-      <nav class="navbar navbar-expand align-items-center gap-4">
-        {{-- <div class="btn-toggle">
+
+        <nav class="navbar navbar-expand align-items-center gap-4">
+
+            <div>
+                <h1><a href="/">Pulse Space</a></h1>
+            </div>
+            {{-- <div class="btn-toggle">
           <a href="javascript:;"><i class="material-icons-outlined">menu</i></a>
         </div> --}}
-        <div class="search-bar flex-grow-1">
-          {{-- <div class="position-relative">
+            <div class="search-bar flex-grow-1">
+                {{-- <div class="position-relative">
             <input class="form-control rounded-5 px-5 search-control d-lg-block d-none" type="text" placeholder="Search">
             <span class="material-icons-outlined position-absolute d-lg-block d-none ms-3 translate-middle-y start-0 top-50">search</span>
             <span class="material-icons-outlined position-absolute me-3 translate-middle-y end-0 top-50 search-close">close</span>
@@ -165,12 +173,12 @@
               </div>
             </div>
           </div> --}}
-        </div>
-        <ul class="navbar-nav gap-1 nav-right-links align-items-center">
-          <li class="nav-item d-lg-none mobile-search-btn">
-            <a class="nav-link" href="javascript:;"><i class="material-icons-outlined">search</i></a>
-          </li>
-          {{-- <li class="nav-item dropdown">
+            </div>
+            <ul class="navbar-nav gap-1 nav-right-links align-items-center">
+                <li class="nav-item d-lg-none mobile-search-btn">
+                    <a class="nav-link" href="javascript:;"><i class="material-icons-outlined">search</i></a>
+                </li>
+                {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="avascript:;" data-bs-toggle="dropdown"><img src="assets/images/county/09.jpg" width="22" alt="" style="border-radius: 10px;">
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -194,8 +202,8 @@
               </li>
             </ul>
           </li> --}}
-  
-          {{-- <li class="nav-item dropdown position-static d-md-flex d-none">
+
+                {{-- <li class="nav-item dropdown position-static d-md-flex d-none">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-auto-close="outside"
             data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">done_all</i></a>
             <div class="dropdown-menu dropdown-menu-end mega-menu shadow-lg p-4 p-lg-5">
@@ -333,7 +341,7 @@
               </div>
             </div>
           </li> --}}
-          {{-- <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-auto-close="outside"
               data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">apps</i></a>
             <div class="dropdown-menu dropdown-menu-end dropdown-apps shadow-lg p-3">
@@ -472,7 +480,7 @@
               </div>
             </div>
           </li> --}}
-          {{-- <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" data-bs-auto-close="outside"
               data-bs-toggle="dropdown" href="javascript:;"><i class="material-icons-outlined">notifications</i>
               <span class="badge-notify">5</span>
@@ -610,365 +618,304 @@
               </div>
             </div>
           </li> --}}
-          {{-- <li class="nav-item d-md-flex d-none">
+                {{-- <li class="nav-item d-md-flex d-none">
             <a class="nav-link position-relative" data-bs-toggle="offcanvas" href="#offcanvasCart"><i
                 class="material-icons-outlined">shopping_cart</i>
               <span class="badge-notify">8</span>
             </a>
           </li> --}}
 
-          <li class="nav-item dropdown">
-            <a href="javascrpt:;" class="user-add dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-              <i class="lni lni-plus" style="margin: 0 auto; text-align: center;"></i>
-            </a>
-            <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
-              <a href="{{ route('blog.post.create') }}" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                <i class="material-icons-outlined">person_outline</i>Создать пост
-              </a>
-            </div>
-          </li>
+                @if (Auth::check() == true)
+                    <li class="nav-item dropdown">
+                        <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
+                            @if (!empty(Auth::user()->avatar))
+                                <img src="{{ Auth::user()->avatar }}" class="rounded-circle p-1 border" width="45"
+                                    height="45" alt="">
+                            @else
+                                <img src="/assets/images/no_avatar.png" class="rounded-circle p-1 border" width="45"
+                                    height="45" alt="">
+                            @endif
+                        </a>
 
-          <li class="nav-item dropdown">
-            <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-              @if (!empty(Auth::user()->avatar))
-                <img src="{{ Auth::user()->avatar }}" class="rounded-circle p-1 border" width="45" height="45" alt="">
-              @else
-                <img src="https://placehold.co/110x110/png" class="rounded-circle p-1 border" width="45" height="45" alt="">
-              @endif
-            </a>
-            <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
-              <div class="text-center">
-                @if (!empty(Auth::user()->avatar))
-                  <img src="{{ Auth::user()->avatar }}" class="rounded-circle p-1 shadow mb-3" width="90" height="90" alt="">
+
+                        <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
+                            <div class="text-center">
+                                @if (!empty(Auth::user()->avatar))
+                                    <img src="{{ Auth::user()->avatar }}" class="rounded-circle p-1 shadow mb-3"
+                                        width="90" height="90" alt="">
+                                @else
+                                    <img src="/assets/images/no_avatar.png" class="rounded-circle p-1 border"
+                                        width="45" height="45" alt="">
+                                @endif
+                                <h5 class="user-name mb-0 fw-bold">{{ Auth::user()->name }}</h5>
+                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="/user/{{ Auth::id() }}/"
+                                class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                <i class="material-icons-outlined">person_outline</i>Профиль
+                            </a>
+                            <a href="/refferal/"
+                                class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                <i class="lni lni-invest-monitor"></i>Рефералка
+                            </a>
+                            <a href="/user/{{ Auth::id() }}/edit"
+                                class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                <i class="lni lni-cog"></i>Настройки
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="{{ route('auth.logout') }}"
+                                class="dropdown-item d-flex align-items-center gap-2 py-2">
+                                <i class="material-icons-outlined">power_settings_new</i>Выйти
+                            </a>
+                        </div>
+                    </li>
                 @else
-                  <img src="https://placehold.co/110x110/png" class="rounded-circle p-1 border" width="45" height="45" alt="">
+                    <a href="/login" title="Войти">Войти</a> / <a href="/register"
+                        title="Зарегистрироваться">Зарегистрироваться</a>
                 @endif
-                  <h5 class="user-name mb-0 fw-bold">{{ Auth::user()->name }}</h5>
-              </div>
-              <hr class="dropdown-divider">
-              <a href="/lk/user/{{ Auth::id() }}/" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                <i class="material-icons-outlined">person_outline</i>Профиль
-              </a>
-              <a href="/lk/user/{{ Auth::id() }}/edit" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                <i class="lni lni-cog"></i>Настройки 
-              </a>
-              <hr class="dropdown-divider">
-              <a href="{{ route('auth.logout') }}" class="dropdown-item d-flex align-items-center gap-2 py-2">
-                <i class="material-icons-outlined">power_settings_new</i>Выйти
-              </a>
-            </div>
-          </li>
-        </ul>
-  
-      </nav>
+            </ul>
+
+        </nav>
     </header>
     <!--end top header-->
-  
-  
-     <!--start sidebar-->
-     <aside class="sidebar-wrapper" data-simplebar="true">
-      <div class="sidebar-header">
-        <div class="logo-icon">
-          <!-- <img src="assets/images/logo.png" class="logo-img" alt=""> -->
-          <div class="logo-text mb-3" data-splitting>Pulse Space</div>
-        </div>
-        <!-- <div class="logo-name flex-grow-1">
-          <h5 class="mb-0">Maxton</h5>
-        </div> -->
-        <div class="sidebar-close">
-          <span class="material-icons-outlined">close</span>
-        </div>
-      </div>
-      <div class="sidebar-nav">
-          <!--navigation-->
-          <ul class="metismenu" id="sidenav">
-            <li>
-              <a href="/lk/">
-                <div class="parent-icon"><i class="material-icons-outlined">home</i>
-                </div>
-                <div class="menu-title">Dashboard</div>
-              </a>
-            </li>
 
-            <li>
-              <a href="/lk/user/{{ Auth::id() }}/">
-                <div class="parent-icon"><i class="material-icons-outlined">person</i>
-                </div>
-                <div class="menu-title">Мой профиль</div>
-              </a>
-            </li>
-
-            {{-- <li>
-              <a href="/lk/user/{{ Auth::id() }}/lv">
-                <div class="parent-icon"><i class="lni lni-diamond-alt"></i>
-                </div>
-                <div class="menu-title">Уровень аккаунта</div>
-              </a>
-            </li> --}}
-
-            <li>
-              <a href="/lk/refferal">
-                <div class="parent-icon"><i class="fadeIn animated bx bx-group"></i>
-                </div>
-                <div class="menu-title">Рефералка</div>
-              </a>
-            </li>
-            
-            <li class="menu-label">Сервисы</li>
-            <li>
-              <a href="/lk/user/{{ Auth::id() }}/wishlist">
-                <div class="parent-icon"><i class="lni lni-heart-filled"></i>
-                </div>
-                <div class="menu-title">Мои желания</div>
-              </a>
-            </li>
-            <li>
-              <a href="/lk/blog">
-                <div class="parent-icon"><i class="fadeIn animated bx bx-news"></i>
-                </div>
-                <div class="menu-title">Лента</div>
-              </a>
-            </li>
-            
-            <li class="menu-label">Помощь</li>
-            {{-- <li>
-              <a href="javascrpt:;">
-                <div class="parent-icon"><i class="material-icons-outlined">description</i>
-                </div>
-                <div class="menu-title">Пособие</div>
-              </a>
-            </li> --}}
-            <li>
-              <a href="https://t.me/+3SNmQ4ymS3k4ZDQy" target="_blank">
-                <div class="parent-icon"><i class="lni lni-telegram-original"></i>
-                </div>
-                <div class="menu-title">Тех. поддержка</div>
-              </a>
-            </li>
-           </ul>
-          <!--end navigation-->
-      </div>
-    </aside>
-  <!--end sidebar-->
-  
     <!--start main wrapper-->
     <main class="main-wrapper">
-      <div class="main-content">
+        <div class="main-content">
 
-        @yield('content')
-  
-      </div>
+            @yield('content')
+
+        </div>
     </main>
     <!--end main wrapper-->
-  
+
     <!--start overlay-->
-       <div class="overlay btn-toggle"></div>
+    <div class="overlay btn-toggle"></div>
     <!--end overlay-->
-  
-     <!--start footer-->
-     <footer class="page-footer">
-      <p class="mb-0">Copyright © 2025 {{ config('app.name'); }}. All rights reserved.</p>
+
+    <!--start footer-->
+    <footer class="page-footer">
+        <p class="mb-0">Copyright © 2025 {{ config('app.name') }}. All rights reserved.</p>
     </footer>
     <!--end footer-->
-  
+
     <!--start cart-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
-      <div class="offcanvas-header border-bottom h-70">
-        <h5 class="mb-0" id="offcanvasRightLabel">8 New Orders</h5>
-        <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
-          <i class="material-icons-outlined">close</i>
-        </a>
-      </div>
-      <div class="offcanvas-body p-0">
-        <div class="order-list">
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">White Men Shoes</h5>
-              <p class="mb-0 order-price">$289</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
-  
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">Red Airpods</h5>
-              <p class="mb-0 order-price">$149</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
-  
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">Men Polo Tshirt</h5>
-              <p class="mb-0 order-price">$139</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
-  
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">Blue Jeans Casual</h5>
-              <p class="mb-0 order-price">$485</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
-  
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">Fancy Shirts</h5>
-              <p class="mb-0 order-price">$758</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
-  
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">Home Sofa Set </h5>
-              <p class="mb-0 order-price">$546</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
-  
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">Black iPhone</h5>
-              <p class="mb-0 order-price">$1049</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
-  
-          <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-            <div class="order-img">
-              <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75" alt="">
-            </div>
-            <div class="order-info flex-grow-1">
-              <h5 class="mb-1 order-title">Goldan Watch</h5>
-              <p class="mb-0 order-price">$689</p>
-            </div>
-            <div class="d-flex">
-              <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-              <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-            </div>
-          </div>
+        <div class="offcanvas-header border-bottom h-70">
+            <h5 class="mb-0" id="offcanvasRightLabel">8 New Orders</h5>
+            <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
+                <i class="material-icons-outlined">close</i>
+            </a>
         </div>
-      </div>
-      <div class="offcanvas-footer h-70 p-3 border-top">
-        <div class="d-grid">
-          <button type="button" class="btn btn-grd btn-grd-primary" data-bs-dismiss="offcanvas">View Products</button>
+        <div class="offcanvas-body p-0">
+            <div class="order-list">
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">White Men Shoes</h5>
+                        <p class="mb-0 order-price">$289</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">Red Airpods</h5>
+                        <p class="mb-0 order-price">$149</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">Men Polo Tshirt</h5>
+                        <p class="mb-0 order-price">$139</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">Blue Jeans Casual</h5>
+                        <p class="mb-0 order-price">$485</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">Fancy Shirts</h5>
+                        <p class="mb-0 order-price">$758</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">Home Sofa Set </h5>
+                        <p class="mb-0 order-price">$546</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">Black iPhone</h5>
+                        <p class="mb-0 order-price">$1049</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+
+                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
+                    <div class="order-img">
+                        <img src="https://placehold.co/200x150/png" class="img-fluid rounded-3" width="75"
+                            alt="">
+                    </div>
+                    <div class="order-info flex-grow-1">
+                        <h5 class="mb-1 order-title">Goldan Watch</h5>
+                        <p class="mb-0 order-price">$689</p>
+                    </div>
+                    <div class="d-flex">
+                        <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
+                        <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="offcanvas-footer h-70 p-3 border-top">
+            <div class="d-grid">
+                <button type="button" class="btn btn-grd btn-grd-primary" data-bs-dismiss="offcanvas">View
+                    Products</button>
+            </div>
+        </div>
     </div>
     <!--end cart-->
-  
+
     <!--start switcher-->
     {{-- <button class="btn btn-grd btn-grd-primary position-fixed bottom-0 end-0 m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
       <i class="material-icons-outlined">tune</i>Customize
     </button> --}}
-    
+
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="staticBackdrop">
-      <div class="offcanvas-header border-bottom h-70">
-        <div class="">
-          <h5 class="mb-0">Уникальная тема</h5>
-          <p class="mb-0">Ваша собственная кастомизация темы</p>
+        <div class="offcanvas-header border-bottom h-70">
+            <div class="">
+                <h5 class="mb-0">Уникальная тема</h5>
+                <p class="mb-0">Ваша собственная кастомизация темы</p>
+            </div>
+            <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
+                <i class="material-icons-outlined">close</i>
+            </a>
         </div>
-        <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
-          <i class="material-icons-outlined">close</i>
-        </a>
-      </div>
-      <div class="offcanvas-body">
-        <div>
-          <p>Выберите тему</p>
-  
-          <div class="row g-3">
-            <div class="col-12 col-xl-6">
-              <input type="radio" class="btn-check" name="theme-options" id="BlueTheme" checked>
-              <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="BlueTheme">
-                <span class="material-icons-outlined">contactless</span>
-                <span>Blue</span>
-              </label>
+        <div class="offcanvas-body">
+            <div>
+                <p>Выберите тему</p>
+
+                <div class="row g-3">
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="BlueTheme" checked>
+                        <label
+                            class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4"
+                            for="BlueTheme">
+                            <span class="material-icons-outlined">contactless</span>
+                            <span>Blue</span>
+                        </label>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="LightTheme">
+                        <label
+                            class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4"
+                            for="LightTheme">
+                            <span class="material-icons-outlined">light_mode</span>
+                            <span>Light</span>
+                        </label>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="DarkTheme">
+                        <label
+                            class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4"
+                            for="DarkTheme">
+                            <span class="material-icons-outlined">dark_mode</span>
+                            <span>Dark</span>
+                        </label>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="SemiDarkTheme">
+                        <label
+                            class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4"
+                            for="SemiDarkTheme">
+                            <span class="material-icons-outlined">contrast</span>
+                            <span>Semi Dark</span>
+                        </label>
+                    </div>
+                    <div class="col-12 col-xl-6">
+                        <input type="radio" class="btn-check" name="theme-options" id="BoderedTheme">
+                        <label
+                            class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4"
+                            for="BoderedTheme">
+                            <span class="material-icons-outlined">border_style</span>
+                            <span>Bordered</span>
+                        </label>
+                    </div>
+                </div><!--end row-->
+
             </div>
-            <div class="col-12 col-xl-6">
-              <input type="radio" class="btn-check" name="theme-options" id="LightTheme">
-              <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="LightTheme">
-                <span class="material-icons-outlined">light_mode</span>
-                <span>Light</span>
-              </label>
-            </div>
-            <div class="col-12 col-xl-6">
-              <input type="radio" class="btn-check" name="theme-options" id="DarkTheme">
-              <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="DarkTheme">
-                <span class="material-icons-outlined">dark_mode</span>
-                <span>Dark</span>
-              </label>
-            </div>
-            <div class="col-12 col-xl-6">
-              <input type="radio" class="btn-check" name="theme-options" id="SemiDarkTheme">
-              <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="SemiDarkTheme">
-                <span class="material-icons-outlined">contrast</span>
-                <span>Semi Dark</span>
-              </label>
-            </div>
-            <div class="col-12 col-xl-6">
-              <input type="radio" class="btn-check" name="theme-options" id="BoderedTheme">
-              <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="BoderedTheme">
-                <span class="material-icons-outlined">border_style</span>
-                <span>Bordered</span>
-              </label>
-            </div>
-          </div><!--end row-->
-  
         </div>
-      </div>
     </div>
     <!--start switcher-->
-  
+
     <script src="/assets/js/notification.js"></script>
 
     <!--bootstrap js-->
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
-  
+
     <!--plugins-->
     <script src="/assets/js/jquery.min.js"></script>
     <!--plugins-->
@@ -980,14 +927,14 @@
     <script src="/assets/plugins/select2/js/select2-custom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-      $(".data-attributes span").peity("donut")
+        $(".data-attributes span").peity("donut")
     </script>
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/dashboard1.js"></script>
     <script>
-       new PerfectScrollbar(".user-list")
+        new PerfectScrollbar(".user-list")
     </script>
-    
+
     <script src="/assets/plugins/fancy-file-uploader/jquery.ui.widget.js"></script>
     <script src="/assets/plugins/fancy-file-uploader/jquery.fileupload.js"></script>
     <script src="/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"></script>
@@ -995,14 +942,14 @@
 
     {{-- для загрузки множества изображений для постов --}}
     <script>
-      $('#fancy-file-upload').FancyFileUpload({
-          params: {
-              action: 'fileuploader'
-          },
-          maxfilesize: 1000000
-      });
-  </script>
-  
-  </body>
-  
+        $('#fancy-file-upload').FancyFileUpload({
+            params: {
+                action: 'fileuploader'
+            },
+            maxfilesize: 1000000
+        });
+    </script>
+
+</body>
+
 </html>

@@ -45,9 +45,12 @@
 
                                             <div class="card-header d-flex" style="justify-content: space-between;">
                                                 <h5 class="mb-0">Мои желания</h5>
-                                                <button class="btn btn-outline-success d-flex gap-2" type="button" data-bs-toggle="modal" data-bs-target="#wish_create" data-bs-original-title="" title="Загадать желание">
-                                                    <i class="fadeIn animated bx bx-plus"></i>
-                                                </button>
+
+                                                @if($user->id == Auth::id())
+                                                    <button class="btn btn-outline-success d-flex gap-2" type="button" data-bs-toggle="modal" data-bs-target="#wish_create" data-bs-original-title="" title="Загадать желание">
+                                                        <i class="fadeIn animated bx bx-plus"></i>
+                                                    </button>
+                                                @endif
                                             </div>
 
                                             @if (empty($wishes))

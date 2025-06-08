@@ -37,30 +37,6 @@ return [
             'throw' => false,
         ],
 
-        'users' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/images/users'),
-            'url' => env('APP_URL').'/storage/images/users',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
-
-        'wishlists' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/images/wishlists'),
-            'url' => env('APP_URL').'/storage/images/wishlists',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
-
-        'blog' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/images/blog'),
-            'url' => env('APP_URL').'/storage/images/blog',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
-
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

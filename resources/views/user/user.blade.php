@@ -112,11 +112,6 @@
                       <h5>Системная информация</h5>
 
                       <div class="row">
-                          <p class="col-sm-3 col-form-label">Роль:</p>
-                          <p class="col-sm-9">{{ $role['title'] }}</p>
-                      </div>
-
-                      <div class="row">
                           <p class="col-sm-3 col-form-label">Тариф аккаунта:</p>
                           <p class="col-sm-9">Класический</p>
                       </div>

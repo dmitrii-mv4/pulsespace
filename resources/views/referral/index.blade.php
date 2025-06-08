@@ -28,8 +28,9 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <div>Статистика</div>
+                                    <div><b>Статистика</b></div>
                                     <div class="card-header p-3">
+                                        <div><b>Реферальная ссылка:</b> {{ $userReferralLink }}</div><br/>
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="d-flex flex-row gap-3 align-items-center justify-content-center border p-3 rounded-3 flex-fill">
                                                 <div class="">
@@ -57,18 +58,17 @@
                             <div class="card">
                               <div class="card-body">
 
-                                  <div>Условие</div>
+                                  <div><b>Условие</b></div>
                                   <hr/>
 
                                   <div style="display: flex; justify-content: space-between;">
                                     <div style="width: 45%;">
-                                      <p>Реферальная ссылка: {{ $userReferralLink }}</p>
-                                      <p>10% с любых покупок ваших рефералов</p>
+                                      <p>1. Возвращаем 10% за покупку и продление VIP аккаунта реферала</p>
+                                      <p>2. Возвращаем 5% за приобретённую услугу на нашем сервисе с реферала</p>
                                     </div>
 
                                     <div style="width: 45%;">
-                                      <p>% Вознаграждения зависит от текущего уровня вашего акаунта.</p>
-                                      <p>Выплаты в beta версии недоступны.</p>
+                                      Выплаты проводятся по запросу до 30 дней.
                                     </div>
                                   </div>
                               </div>
@@ -77,7 +77,7 @@
                             <div class="card">
                               <div class="card-body">
 
-                                  <div>Мои рефералы</div>
+                                  <div><b>Мои рефералы</b></div>
                                   <hr/>
 
                                   <table class="table table-sm mb-0">

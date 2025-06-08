@@ -58,19 +58,22 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Список: </label>
-                                    <select id="multiple-select-field" class="form-select select2-hidden-accessible"
-                                        name="lists[]" multiple="multiple" tabindex="-1" aria-hidden="true">
 
+                                    <select id="multiple-select-field" class="form-select" name="lists[]" multiple>
                                         @foreach ($lists as $list)
-                                            <option
-                                                @foreach ($wish->lists as $wish_lists)
-                                                    {{ $list->id === $wish_lists->id ? 'selected' : '' }} 
+                                            <option value="{{ $list->id }}"
+                                                @foreach ($wish->lists as $wish_list)
+                                                    @if ($list->id === $wish_list->id)
+                                                        selected
+                                                        @break
+                                                    @endif
                                                 @endforeach
-                                                value="{{ $list->id }}">{{ $list->title }}
+                                            >
+                                                {{ $list->title }}
                                             </option>
                                         @endforeach
-
                                     </select>
+
                                 </div>
                               </div>
                             </div>

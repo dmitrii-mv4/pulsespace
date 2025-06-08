@@ -21,11 +21,7 @@ return new class extends Migration
             $table->index('role_id', 'role_idx');
             $table->foreign('role_id', 'role_fk')->on('roles')->references('id');
 
-            $table->integer('tariff_id')->default(1);
-
-            $table->unsignedBigInteger('level_id')->default(1);
-            $table->index('level_id', 'level_idx');
-            $table->foreign('level_id', 'level_fk')->on('levelaccount_levels')->references('id');
+            $table->string('tariff')->default('simple');
 
             $table->string('name');
             $table->string('surname')->default('')->nullable();
@@ -39,12 +35,7 @@ return new class extends Migration
             $table->string('avatar')->default('/assets/images/no_avatar.png');
             $table->string('cover')->default('/assets/images/no_cover.png');
 
-            // реферальная программа 
-            // $table->unsignedBigInteger('users_referrals')->default(1);
-            // $table->index('users_referrals', 'users_referrals_idx');
-            // $table->foreign('users_referrals', 'users_referrals_fk')->on('users_referrals')->references('id');
-
-            $table->string('service_theme')->default('semi-dark');
+            $table->string('service_theme')->default('light');
             $table->string('password');
 
             $table->timestamps();

@@ -6,21 +6,18 @@
     </button>
 
     <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
-
         <li class="nav-item">
-            <a href="/lk/user/{{ $user->id }}/wishlist" class="nav-link">
-                Все ({{ $wishes_count }})
+            <a href="/user/{{ $user->id }}/wishlist" class="nav-link">
+                Все ({{ $wishes->count() }})
             </a>
         </li>
 
         @foreach ($lists as $list)
             <li class="nav-item">
-                <a href="/lk/user/{{ $user->id }}/wishlist/list/{{ $list->url }}" class="nav-link">
-                    {{ $list->title }} 
-                    {{-- ({{ $wishes_list_count }}) --}}
+                <a href="/user/{{ $user->id }}/wishlist/list/{{ $list->url }}" class="nav-link">
+                    {{ $list->title }} ({{ $list->wishes_count }})
                 </a>
             </li>
         @endforeach
-
     </ul>
 </div>

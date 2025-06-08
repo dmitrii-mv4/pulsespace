@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('taskmanager_sections', function (Blueprint $table) {
+        Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->integer('id_user');
+            $table->integer('id_user_subscriber');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('taskmanager_sections');
+        Schema::dropIfExists('subscribers');
     }
 };

@@ -7,6 +7,6 @@ use App\Http\Controllers\ReferralController;
 
 Route::controller(ReferralController::class)->group(function () {
 
-    Route::get('/refferal', 'index')->name('refferal.index');
+    Route::get('/refferal', 'index')->middleware('auth')->name('refferal.index');
 
 });

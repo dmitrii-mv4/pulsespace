@@ -146,8 +146,6 @@
                                           <option value="blue-theme" @if ($user->service_theme == 'blue-theme') selected @endif>Синяя</option>
                                           <option value="light" @if ($user->service_theme == 'light') selected @endif>Светная</option>
                                           <option value="dark" @if ($user->service_theme == 'dark') selected @endif>Тёмная</option>
-                                          <option value="semi-dark" @if ($user->service_theme == 'semi-dark') selected @endif>Полутёмная</option>
-                                          <option value="bodered-theme" @if ($user->service_theme == 'bodered-theme') selected @endif>Безграничная светлая</option>
                                         </select>
   
                                     </div>

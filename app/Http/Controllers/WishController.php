@@ -25,32 +25,24 @@ class WishController extends Controller
 
         $dataValidated = $request->validated();
 
+        // Если аватар загружен
+        if ($request->hasFile('image'))
+        {
+            $fileImage = $request->file('image');
+
+            // Генерируем уникальное имя
+            $newNameImage = now()->format('Y-m-d_His') . '.' . $fileImage->extension();
+
+            // Сохраняем в public/users/wishlist
+            $pathImage = $fileImage->storeAs('users/wishlist', $newNameImage, 'public');
+            $publicPathImage = '/storage/' . $pathImage;
+        } else {
+            $publicPathImage = '/assets/images/lightgallry/01.jpg';
+        }
+
         // определяем id пользователя на чей страницы находимся 
         // $url = explode('/', URL::current());
         // $user_id = $url[5];
-
-        // загружаем картинку
-        if (!empty(request()->file('image')))
-        {
-            $fileImage = request()->file('image');
-
-            // Генерируем новое имя файла на основе текущей даты/времени
-            $newNameImage = now()->format('Y-m-d_His') . '.' . $fileImage->getClientOriginalExtension();
-
-            // Сохраняем файл с новым именем
-            $pathImage = $fileImage->storeAs('public/images/wishlists', $newNameImage);
-
-            // Загружаем фото на диск wishlists
-            $pathImage = Storage::disk('wishlists')->putFileAs(
-                $fileImage,    // файл 
-                $newNameImage  // название файла
-            );
-
-            $pathImage = '/storage/images/wishlists/'.$newNameImage;
-
-        } else {
-            $pathImage = '/assets/images/lightgallry/01.jpg';
-        }
 
         $wish = Wish::create([
             'title' => $dataValidated['title'],
@@ -58,7 +50,7 @@ class WishController extends Controller
             'user_id' => $user->id,
             'link_buy' => $dataValidated['link_buy'],
             'description' => $dataValidated['description'],
-            'image' => $pathImage,
+            'image' => $publicPathImage,
         ]);
 
         if (!empty($dataValidated['lists']))
@@ -72,59 +64,39 @@ class WishController extends Controller
 
     public function update(User $user, Wish $wish, WishUpdateRequest $request)
     {
+        //dd($request->all());
+
         // Проверка прав доступа (пример)
         if ($wish->user_id !== $user->id) {
             abort(403);
         }
 
-        //dd($request->all());
-
         $dataValidated = $request->validated();
 
-        // Получаем экземпляр модели Wishlist
-        $wishlist = Wish::findOrFail($wish['id']);
-
-        // Если изображение загружено
-        if (!empty(request()->file('image')))
+        if ($request->hasFile('image'))
         {
-            // Проверяем есть ли старый путь к изображению в БД
-            if (!empty($dataValidated['image']))
-            {
-                $nameImageOld = explode('/', $dataValidated['old_image']);
+            $fileImage = $request->file('image');
 
-                if (!empty($nameImageOld[4]))
-                {
-                    if (file_exists('storage/images/wishlists/' . $nameImageOld[4])) {
-                        unlink('storage/images/wishlists/' . $nameImageOld[4]);
-                    }
+            // Удаляем старую картинку
+            if (!empty($dataValidated['old_image'])) {
+                $oldImagePath = str_replace('/storage/', '', $dataValidated['old_image']);
+                if (Storage::disk('public')->exists($oldImagePath)) {
+                    Storage::disk('public')->delete($oldImagePath);
                 }
             }
 
-            // Получаем файл изображения
-            $fileImage = request()->file('image');
+            // Генерируем уникальное имя
+            $newNameImage = now()->format('Y-m-d_His') . '.' . $fileImage->extension();
 
-            // Генерируем новое имя файла на основе текущей даты/времени
-            $newNameImage = now()->format('Y-m-d_His') . '.' . $fileImage->getClientOriginalExtension();
-
-            // Сохраняем файл с новым именем
-            $pathImage = $fileImage->storeAs('public/images/wishlists', $newNameImage);
-
-            // Для доступа через web:
-            //$publicPathImage = Storage::url($pathImage);
-
-            // Загружаем фото на диск wishlists
-            $PathImage = Storage::disk('wishlists')->putFileAs(
-                $fileImage,    // файл 
-                $newNameImage  // название файла
-            );
-
-            $PathImage = '/storage/images/wishlists/'.$newNameImage;
-
+            // Сохраняем в public/users/wishlist
+            $pathImage = $fileImage->storeAs('users/wishlist', $newNameImage, 'public');
+            $publicPathImage = '/storage/' . $pathImage;
         } else {
-            $PathImage = $dataValidated['old_image'];
+            $publicPathImage = $dataValidated['old_image'];
         }
 
-        //$wish->update($request->validated());
+        // Получаем экземпляр модели Wishlist
+        $wishlist = Wish::findOrFail($wish['id']);
 
         $wish->update([
             'title' => $dataValidated['title'],
@@ -132,7 +104,7 @@ class WishController extends Controller
             'user_id' => $user->id,
             'link_buy' => $dataValidated['link_buy'],
             'description' => $dataValidated['description'],
-            'image' => $PathImage,
+            'image' => $publicPathImage,
         ]);
     
         if (!empty($dataValidated['lists']))
@@ -191,20 +163,16 @@ class WishController extends Controller
             abort(403);
         }
 
-        // Проверяем есть ли старый путь к изображению в БД
-        // if (!empty($wishlist->all()[0]->image))
-        // {
-        //     $nameImageOld = explode('/', $wishlist->all()[0]->image);
-
-        //     if (!empty($nameImageOld[4]))
-        //     {
-        //         if (file_exists('storage/images/wishlists/' . $nameImageOld[4])) {
-        //             unlink('storage/images/wishlists/' . $nameImageOld[4]);
-        //         }
-        //     }
-        // }
-
-        $wish = Wish::withTrashed()->find($wish->id);
+        // Удаление изображения вишлиста
+        if ($wish->image) {
+            // Преобразование URL в относительный путь
+            $imagePath = str_replace('/storage/', '', $wish->image);
+            
+            // Удаление файла с публичного диска
+            if (Storage::disk('public')->exists($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
+            }
+        }
 
         $wish->delete();
 
