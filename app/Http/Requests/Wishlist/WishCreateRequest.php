@@ -24,7 +24,7 @@ class WishCreateRequest extends FormRequest
         return [
             'title' => 'required|min:3|max:255',
             'price' => 'nullable|numeric',
-            'link_buy' => 'nullable|max:255|url',
+            'link_buy' => 'nullable|url',
             'image' => 'nullable',
             'description' => 'nullable|min:3|max:255',
             'done' => '',

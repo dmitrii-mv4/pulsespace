@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('price')->nullable();
-            $table->string('link_buy')->nullable();
+            $table->text('link_buy')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('user_ip_booking')->nullable();
             $table->date('date_booking')->nullable();
             $table->boolean('done')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image');
             $table->timestamps();
             $table->softDeletes();
