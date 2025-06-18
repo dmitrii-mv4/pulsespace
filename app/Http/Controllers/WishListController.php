@@ -18,7 +18,7 @@ class WishListController extends Controller
     public function index(User $user, WishList $list)
     {
         // Получаем списки с подсчетом связанных желаний текущего пользователя
-        $lists = Wishlist::where('user_id', $user->id)
+        $lists = WishList::where('user_id', $user->id)
             ->withCount('wishes')
             ->get();
 
