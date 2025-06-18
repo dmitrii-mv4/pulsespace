@@ -22,7 +22,7 @@ class EmailVerifiedMiddleware
         {
             return $next($request);
         }
-
+        
         abort(403);
     }
 }

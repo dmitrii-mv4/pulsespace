@@ -15,9 +15,23 @@ use App\Http\Requests\Wishlist\WishListUpdateRequest;
 
 class WishListController extends Controller
 {
-    public function index(User $user)
+    public function index(User $user, WishList $list)
     {
-        return 'index';
+        // Получаем списки с подсчетом связанных желаний текущего пользователя
+        $lists = Wishlist::where('user_id', $user->id)
+            ->withCount('wishes')
+            ->get();
+
+        // Желания текущего списка + проверка принадлежности пользователю
+        $wishes = $list->wishes()
+            ->where('user_id', $user->id)
+            ->whereNull('wisheslist_wish_join_lists.deleted_at')
+            ->get();
+
+        // выводим кол-во всех желаний
+        $wishes_count = Wish::where('user_id', $user['id'])->count();
+
+        return view('wishlist/list', compact('user', 'lists', 'list', 'wishes', 'wishes_count'));
     }
 
     public function create(User $user, WishListCreateRequest $request)
@@ -26,26 +40,33 @@ class WishListController extends Controller
 
         $dataValidated = $request->validated();
 
-        // генерируем url адрес
-        $url_list = date("YmdHis");
-
         $list = WishList::create([
             'title' => $dataValidated['title'],
             'user_id' => $user->id,
-            'url' => $url_list,
             'description' => $dataValidated['description'],
         ]);
 
-         return redirect()->route('wishlist.index', $user->id)->with('success', 'Лист желаний успешно создан!');
+        return redirect()->route('wishlist.index', [$user->id, $list->id])->with('success', 'Лист желаний успешно создан!');
     }
 
     public function update(User $user, WishList $list, WishListUpdateRequest $request)
     {
-        dd($list);
+        $validated = $request->validated();
+
+        WishList::where('id', '=', $list['id'])
+            ->update([
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'updated_at' => date("Y-m-d H:i:s"),
+            ]);
+
+        return redirect()->route('wishlist.list', [$user->id, $list->id])->with('success', 'Список изменён');
     }
 
-    public function delete()
+    public function destroy(User $user, WishList $list)
     {
-        //
+        $list->delete();
+        
+        return redirect()->route('wishlist.index', $user->id)->with('success', 'Список удалён!');
     }
 }

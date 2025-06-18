@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Wish;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Wishlist\WishCreateRequest;
 use App\Http\Requests\Wishlist\WishUpdateRequest;
@@ -14,9 +15,20 @@ use Illuminate\Http\Request;
 
 class WishController extends Controller
 {
-    public function index(User $user)
+    public function index(User $user, Wishlist $wish)
     {
-        return 'index';
+        // Получаем списки с подсчетом связанных желаний текущего пользователя
+        $lists = Wishlist::where('user_id', $user->id)
+            ->withCount('wishes')
+            ->get();
+
+        // выводим все желания текущего пользователя
+        $wishes = Wish::where('user_id', $user['id'])->get();
+
+        // выводим кол-во всех желаний
+        $wishes_count = Wish::where('user_id', $user['id'])->count();
+
+        return view('wishlist/index', compact('user', 'lists', 'wishes', 'wishes_count'));
     }
 
     public function create(User $user, WishCreateRequest $request)
@@ -66,11 +78,6 @@ class WishController extends Controller
     {
         //dd($request->all());
 
-        // Проверка прав доступа (пример)
-        if ($wish->user_id !== $user->id) {
-            abort(403);
-        }
-
         $dataValidated = $request->validated();
 
         if ($request->hasFile('image'))
@@ -118,11 +125,6 @@ class WishController extends Controller
 
     public function update_done(User $user, Wish $wish, Request $request)
     {
-        // Проверка прав доступа (пример)
-        if ($wish->user_id !== $user->id) {
-            abort(403);
-        }
-
         $wish->update([
             'done' => $request->input('wish_done')
         ]);

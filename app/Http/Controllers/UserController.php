@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Requests\UserUpdateRequest;
 use App\Providers\DailyRandomService;
-
+use Illuminate\Container\Attributes\Auth;
 
 class UserController extends Controller
 {
@@ -129,45 +129,6 @@ class UserController extends Controller
             ]);
 
         return redirect()->route('user.user', $dataValidated['id'])->with('success', 'Ваш профиль обновлён!');
-    }
-
-    public function wish(User $user)
-    {
-        $role = Role::find($user['role_id']);
-
-        // Получаем списки с подсчетом связанных желаний текущего пользователя
-        $lists = Wishlist::where('user_id', $user->id)
-            ->withCount('wishes')
-            ->get();
-
-        // выводим все желания текущего пользователя
-        $wishes = Wish::where('user_id', $user['id'])->get();
-
-        // выводим кол-во всех желаний
-        $wishes_count = Wish::where('user_id', $user['id'])->count();
-
-        return view('wishlist/index', compact('user', 'role', 'lists', 'wishes', 'wishes_count'));
-    }
-
-    public function wish_list(User $user, WishList $list)
-    {
-        $role = Role::find($user['role_id']);
-
-        // Получаем списки с подсчетом связанных желаний текущего пользователя
-        $lists = Wishlist::where('user_id', $user->id)
-            ->withCount('wishes')
-            ->get();
-
-        // Желания текущего списка + проверка принадлежности пользователю
-        $wishes = $list->wishes()
-            ->where('user_id', $user->id)
-            ->whereNull('wisheslist_wish_join_lists.deleted_at')
-            ->get();
-
-        // выводим кол-во всех желаний
-        $wishes_count = Wish::where('user_id', $user['id'])->count();
-
-        return view('wishlist/list', compact('user', 'role', 'lists', 'list', 'wishes', 'wishes_count'));
     }
 
     // Повторная отправка письма на потдверждение Email

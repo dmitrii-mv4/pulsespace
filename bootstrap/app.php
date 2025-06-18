@@ -6,7 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 use App\Http\Middleware\AdminRole;
 use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\User\UserEditMiddleware;
+use App\Http\Middleware\UserEditMiddleware;
 use App\Http\Middleware\EmailVerifiedMiddleware;
 use App\Http\Middleware\TrackReferralClicks;
 

@@ -32,8 +32,8 @@ class WishList extends Model
         return $this->belongsToMany(Wish::class, 'wisheslist_wish_join_lists', 'list_id', 'wish_id');
     }
 
-    public function getRouteKeyName()
-    {
-        return 'url'; // Указываем использовать поле url для маршрутов
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'url'; // Указываем использовать поле url для маршрутов
+    // }
 }

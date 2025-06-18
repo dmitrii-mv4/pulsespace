@@ -144,7 +144,7 @@
 
                                         <select id="service_theme" class="js-example-disabled-results form-select input-air-primary digits" tabindex="-1" aria-hidden="true" title="Тема сервиса" name="service_theme">
                                           <option value="blue-theme" @if ($user->service_theme == 'blue-theme') selected @endif>Синяя</option>
-                                          <option value="light" @if ($user->service_theme == 'light') selected @endif>Светная</option>
+                                          <option value="light" @if ($user->service_theme == 'light') selected @endif>Светлая</option>
                                           <option value="dark" @if ($user->service_theme == 'dark') selected @endif>Тёмная</option>
                                         </select>
   
