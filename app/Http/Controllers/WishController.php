@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Wish;
-use App\Models\Wishlist;
+use App\Models\WishList;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Wishlist\WishCreateRequest;
 use App\Http\Requests\Wishlist\WishUpdateRequest;
